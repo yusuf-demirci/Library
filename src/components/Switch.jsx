@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { styled } from '@mui/system';
 import SwitchUnstyled, { switchUnstyledClasses } from '@mui/base/SwitchUnstyled';
+import LibraryContext from '../context/LibraryContext';
+import { useState, useContext, useEffect } from 'react';
 
 const grey = {
   400: '#BFC7CF',
@@ -76,12 +78,20 @@ const Root = styled('span')(
 );
 
 export default function Switch({handleChange}) {
+
+  const [selected, setSelected] = useState(false)
+  const {bookEdit} = useContext(LibraryContext)
+  
+  useEffect(() => {
+    setSelected(bookEdit ? bookEdit.item.isRead : false)
+  }, [bookEdit])
+
   const label = { componentsProps: { input: { 'aria-label': 'Demo switch' } } };
  
   return (
     <div className='read-book'>
       <p>Read the Book?</p>
-      <SwitchUnstyled onChange={handleChange} component={Root} {...label} />
+      <SwitchUnstyled onChange={handleChange}  component={Root} {...label} />
     </div>
   );
 }

@@ -9,6 +9,8 @@ import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import Switch from './Switch';
 import ResponsiveDatePickers from './DatePicker';
 import ButtonAction from './ButtonAction';
+import LibraryContext from '../context/LibraryContext';
+import { useContext, useEffect } from 'react';
 
 const style = {
     position: 'absolute',
@@ -23,24 +25,12 @@ const style = {
 };
 
 export default function TransitionsModal() {
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
 
-    const [title, setTitle] = React.useState("")
-    const [author, setAuthor] = React.useState("")
-    const [pages, setPages] = React.useState()
-    const [isRead, setIsRead] = React.useState(false)
-    const [readDate, setReadDate] = React.useState(new Date());
+    const { title, author, pages, isRead, readDate, open,
+         handleOpen, handleClose, handleChange, handleDateChange,
+         addBook } = useContext(LibraryContext)
 
-    function handleChange(e){
-        console.log(e)
-        if(e.target.id === "title") setTitle(e.target.value)
-        else if(e.target.id === "author") setAuthor(e.target.value)
-        else if(e.target.id === "pages") setPages(e.target.value)
-        else if(e.target.type === "checkbox") setIsRead(!isRead)
-        
-    }
+    
 
     return (
         <div>
@@ -64,17 +54,17 @@ export default function TransitionsModal() {
                             </Typography>
                             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
                                 <input onChange={handleChange}
-                                type="text" id='title' placeholder='Title*' value={title}  required />
-                                <input onChange={handleChange} 
-                                type="text" id='author' placeholder='Author*' value={author} required />
-                                <input onChange={handleChange} 
-                                type="number" id='pages' placeholder='Pages' value={pages} />
+                                    type="text" id='title' placeholder='Title*' defaultValue={title} required />
+                                <input onChange={handleChange}
+                                    type="text" id='author' placeholder='Author*' defaultValue={author} required />
+                                <input onChange={handleChange}
+                                    type="number" id='pages' placeholder='Pages' defaultValue={pages} />
                             </Typography>
-                            <Switch handleChange={handleChange}/>
-                            <ResponsiveDatePickers handleChange={handleChange} date={readDate}/>
+                            <Switch handleChange={handleChange} />
+                            <ResponsiveDatePickers handleDateChange={handleDateChange} date={readDate} />
                             <div className='control modal'>
                                 <ButtonAction className='cancel' icon="" text="Cancel" onPress={handleClose} />
-                                <ButtonAction className='ok' icon="" text="Ok" />
+                                <ButtonAction className='ok' icon="" text="Ok" onPress={addBook} />
                             </div>
                         </form>
                     </Box>

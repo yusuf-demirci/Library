@@ -1,17 +1,19 @@
 const bookCase = [
     {
+        id: 1,
         title: "Tutunamayanlar",
         author: "Oğuz Atay",
         pages: 724,
         isRead: true,
-        dateOfFinish: "01-01-2008"
+        readDate: "1/1/2008"
     },
     {
-        title: "Tutunamayanlar",
+        id: 2,
+        title: "Yüzyıllık Yalnızlık",
         author: "Oğuz Atay",
         pages: 724,
         isRead: false,
-        dateOfFinish: "01-01-2008"
+        readDate: "1/1/2008"
     }
 ]
 

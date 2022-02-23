@@ -7,18 +7,17 @@ import DatePicker from '@mui/lab/DatePicker';
 import Stack from '@mui/material/Stack';
 
 
-export default function ResponsiveDatePickers({readDate, handleChange}) {
-
+export default function ResponsiveDatePickers({date, handleDateChange}) {
+  
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Stack spacing={3}>
         <DatePicker
           disableFuture
-          label="Responsive"
           openTo="year"
           views={['year', 'month', 'day']}
-          value={readDate}
-          onChange={() => handleChange()}
+          value={date}
+          onChange={(date) => handleDateChange(date.toLocaleDateString())}
           renderInput={(params) => <TextField {...params} />}
         />
       </Stack>

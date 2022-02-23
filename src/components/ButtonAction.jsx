@@ -2,7 +2,10 @@
 
 function ButtonAction({icon, text, onPress}) {
   return (
-    <button onClick={onPress}>
+    <button onClick={(e) => {
+      e.preventDefault()
+      onPress()
+    }}>
         {icon}
         {text}
     </button>
