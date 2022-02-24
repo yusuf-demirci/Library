@@ -22,7 +22,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 3rem;
+  padding: 2.5rem;
   background-color: #1A374D;
   color: #FFF;
 }
@@ -90,6 +90,9 @@ button:hover, .plus:hover {
 button:active, .plus:active {
   top: 1px;
 }
+.modal-form {
+  margin: auto;
+}
 #transition-modal-title {
   font-size: 2rem;
   font-weight: bold;
@@ -113,4 +116,37 @@ input {
 .control.modal {
   justify-content: flex-end;
   margin-top: 1rem;
+}
+
+@media screen and (max-width: 775px) {
+  main {
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem auto;
+    gap: 1rem;
+  }
+}
+@media screen and (max-width: 435px) {
+  main {
+    padding: 2rem 1rem;
+    gap: 2rem;
+  }
+  .log {
+    font-size: 1rem;
+    gap: 0.8rem;
+  }
+  .modal-form {
+    width: 95%;
+  }
+  .control {
+    gap: 0.5rem;
+  }
+  .control button {
+    padding: 0.5rem ;
+  }
 }

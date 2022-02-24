@@ -10,14 +10,13 @@ import Switch from './Switch';
 import ResponsiveDatePickers from './DatePicker';
 import ButtonAction from './ButtonAction';
 import LibraryContext from '../context/LibraryContext';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -26,11 +25,9 @@ const style = {
 
 export default function TransitionsModal() {
 
-    const { title, author, pages, isRead, readDate, open,
+    const { title, author, pages, readDate, open,
          handleOpen, handleClose, handleChange, handleDateChange,
-         addBook } = useContext(LibraryContext)
-
-    
+         addBook, selected } = useContext(LibraryContext)
 
     return (
         <div>
@@ -47,7 +44,7 @@ export default function TransitionsModal() {
                 }}
             >
                 <Fade in={open}>
-                    <Box sx={style}>
+                    <Box className='modal-form' sx={style}>
                         <form>
                             <Typography id="transition-modal-title" variant="h6" component="h2">
                                 Book Information
@@ -61,7 +58,7 @@ export default function TransitionsModal() {
                                     type="number" id='pages' placeholder='Pages' defaultValue={pages} />
                             </Typography>
                             <Switch handleChange={handleChange} />
-                            <ResponsiveDatePickers handleDateChange={handleDateChange} date={readDate} />
+                            <ResponsiveDatePickers handleDateChange={handleDateChange} date={readDate} isDisabled={selected} />
                             <div className='control modal'>
                                 <ButtonAction className='cancel' icon="" text="Cancel" onPress={handleClose} />
                                 <ButtonAction className='ok' icon="" text="Ok" onPress={addBook} />

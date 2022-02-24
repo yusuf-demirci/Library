@@ -1,20 +1,23 @@
 import { createContext, useState, useEffect } from "react";
 import bookCase from "../components/BookCase";
 
-
 const LibraryContext = createContext()
 
 export const BookListProvider = ({ children }) => {
-    const [bookList, setBookList] = useState(bookCase)
+    const [bookList, setBookList] = useState(() => {
+        const saved = localStorage.getItem("bookList")
+        const initialValue = JSON.parse(saved)
+        return initialValue || bookCase;
+    })
     const [title, setTitle] = useState("")
     const [author, setAuthor] = useState("")
     const [pages, setPages] = useState("")
     const [isRead, setIsRead] = useState(false)
     const [readDate, setReadDate] = useState(new Date().toLocaleDateString());
-    const [currentBook, setCurrentBook] = useState("")
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
+
     const handleClose = () => {
         setOpen(false);
         reset()
@@ -26,6 +29,11 @@ export const BookListProvider = ({ children }) => {
         edit: false
     })
 
+    const [selected, setSelected] = useState(false)
+    useEffect(() => {
+        setSelected(bookEdit ? bookEdit.item.isRead : false)
+    }, [bookEdit])
+
     useEffect(() => {
         if (bookEdit.edit === true) {
             setTitle(bookEdit.item.title)
@@ -36,8 +44,11 @@ export const BookListProvider = ({ children }) => {
 
             handleOpen()
         }
-
     }, [bookEdit])
+
+    useEffect(() => {
+        localStorage.setItem("bookList", JSON.stringify(bookList))
+    }, [bookList])
 
     function handleChange(e) {
         if (e.target.id === "title") setTitle(e.target.value)
@@ -52,12 +63,10 @@ export const BookListProvider = ({ children }) => {
 
     function addBook() {
         if (title && author) {
-
             if (bookEdit.edit === true) {
                 setBookList(bookList.map((item) => {
-                    console.log(bookEdit)
+
                     if (bookEdit.item.id == item.id) {
-                       console.log("hello")
                         return {
                             id: uuidv4(),
                             title: title,
@@ -66,7 +75,6 @@ export const BookListProvider = ({ children }) => {
                             isRead: isRead,
                             readDate: readDate
                         }
-
                     }
                     else return item
                 }))
@@ -80,10 +88,9 @@ export const BookListProvider = ({ children }) => {
                     readDate: readDate,
                 }])
             }
-
-            console.log(bookList)
             handleClose()
             reset()
+            setBookEdit({ ...bookEdit, edit: false })
         }
     }
     function reset() {
@@ -101,15 +108,14 @@ export const BookListProvider = ({ children }) => {
     }
 
     function editBook(item) {
-        setCurrentBook(item)
         setBookEdit({
             item,
             edit: true
         })
     }
 
-    function updateBook() {
-        console.log(currentBook.id, currentBook)
+    function handleSwitchClick() {
+        setSelected(!selected)
     }
 
     return <LibraryContext.Provider value={{
@@ -121,6 +127,7 @@ export const BookListProvider = ({ children }) => {
         readDate,
         open,
         bookEdit,
+        selected,
         handleOpen,
         handleClose,
         handleChange,
@@ -128,7 +135,7 @@ export const BookListProvider = ({ children }) => {
         addBook,
         deleteBook,
         editBook,
-
+        handleSwitchClick
     }}>
         {children}
     </LibraryContext.Provider>

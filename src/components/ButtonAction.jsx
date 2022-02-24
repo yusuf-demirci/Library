@@ -1,5 +1,4 @@
 
-
 function ButtonAction({icon, text, onPress}) {
   return (
     <button onClick={(e) => {

@@ -5,15 +5,15 @@ const bookCase = [
         author: "Oğuz Atay",
         pages: 724,
         isRead: true,
-        readDate: "1/1/2008"
+        readDate: "1/1/1972"
     },
     {
         id: 2,
-        title: "Yüzyıllık Yalnızlık",
-        author: "Oğuz Atay",
-        pages: 724,
+        title: "Kuyucaklı Yusuf",
+        author: "Sabahattin Ali",
+        pages: 221,
         isRead: false,
-        readDate: "1/1/2008"
+        readDate: "1/1/1932"
     }
 ]
 
