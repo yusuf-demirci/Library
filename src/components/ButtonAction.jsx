@@ -1,10 +1,7 @@
 
 function ButtonAction({icon, text, onPress}) {
   return (
-    <button onClick={(e) => {
-      e.preventDefault()
-      onPress()
-    }}>
+    <button onClick={onPress}>
         {icon}
         {text}
     </button>
