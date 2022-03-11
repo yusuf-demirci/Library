@@ -1,6 +1,32 @@
 # Getting Started with Create React App
 
+## Overview
+
+### The challenge
+
+Users should be able to:
+
+- View the optimal layout for the component depending on their device's screen size
+- See hover states for all interactive elements on the page
+- Add, edit and delete books
+- Track the count of read and unread books
+
+### Screenshot
+
+![./screenshot.png](./src/img/screenshot.png)
+
+### Links
+
 Live Site URL: https://yusufdemirci-library.netlify.app/
+
+### Built with
+
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox & Grid
+- Mobile-first workflow
+- React.js
+- Material UI
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
